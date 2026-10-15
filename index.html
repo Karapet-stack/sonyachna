@@ -1,0 +1,89 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Калькулятор підключення сонячних панелей</title>
+<style>
+:root{--bg:#f5f7ff;--cd:#fff;--ink:#0f1b33;--mu:#55627a;--ac:#4f46e5;--hot:#f97316;--gr:#e0e6f6;--ok:#16a34a;--wn:#d97706;--er:#dc2626;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1a2c;--cd:#13243a;--ink:#e6eef9;--mu:#9db0c6;--ac:#8ab4ff;--hot:#ff8a4c;--gr:#223a57;--ok:#4ade80;--wn:#fbbf24;--er:#f87171}}
+:root[data-theme="dark"]{--bg:#0c1a2c;--cd:#13243a;--ink:#e6eef9;--mu:#9db0c6;--ac:#8ab4ff;--hot:#ff8a4c;--gr:#223a57;--ok:#4ade80;--wn:#fbbf24;--er:#f87171}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;font:16px/1.45 system-ui,"Segoe UI",Roboto,sans-serif;color:var(--ink);background-color:var(--bg);background-image:radial-gradient(var(--gr) 1.2px,transparent 1.4px);background-size:26px 26px}
+.w{max-width:1120px;margin:0 auto;padding:18px clamp(14px,4vw,32px) 36px}
+.tag{display:inline-block;font:700 12px ui-monospace,monospace;letter-spacing:.08em;background:linear-gradient(135deg,var(--ac),#9333ea);color:#fff;padding:5px 13px;border-radius:99px}
+h1{margin:8px 0 4px;font-size:clamp(26px,4.2vw,44px);line-height:1.08;background:linear-gradient(90deg,var(--ac),#9333ea 55%,var(--hot));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{margin:0 0 16px;color:var(--mu)}
+.g{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:16px;align-items:start}
+@media(max-width:840px){.g{grid-template-columns:1fr}}
+.cd{background:var(--cd);border:1px solid var(--gr);border-radius:18px;padding:14px 16px;box-shadow:0 8px 24px #4f46e516;margin-bottom:14px}
+.cd h2{margin:0 0 10px;font-size:1.02em}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:grid;gap:3px;font-size:.82em;color:var(--mu)}
+select,input[type=number]{font:inherit;padding:7px 9px;border:1px solid var(--gr);border-radius:10px;background:var(--bg);color:var(--ink);width:100%;box-sizing:border-box}
+input[type=range]{width:100%;accent-color:var(--ac)}
+.sl{display:grid;gap:3px;margin-bottom:10px;font-size:.92em}.sl b{color:var(--ac);font-size:1.15em}
+.pre{display:flex;flex-wrap:wrap;gap:8px}
+button{font:700 14px system-ui;border:0;border-radius:99px;padding:7px 15px;cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--ac),#9333ea)}button:hover{filter:brightness(1.12)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px}
+.t{border:1px solid var(--gr);border-radius:14px;padding:10px 12px;background:var(--bg)}.t span{display:block;font-size:.78em;color:var(--mu)}.t strong{font-size:1.45em;color:var(--ac)}
+ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+li{display:flex;gap:10px;align-items:flex-start;padding:8px 11px;border-radius:12px;border:1px solid var(--gr)}li i{flex:none;width:12px;height:12px;border-radius:50%;margin-top:6px}
+li small{display:block;color:var(--mu)}.ok i{background:var(--ok)}.wn i{background:var(--wn)}.er i{background:var(--er)}
+svg{width:100%;height:auto;max-height:340px;display:block}svg text{fill:var(--ink);font:600 12px system-ui}
+.pn{fill:var(--ac);fill-opacity:.3;stroke:var(--ink);stroke-width:1.2}.wr{stroke:var(--ink);stroke-width:1.6;fill:none}.iv{fill:var(--cd);stroke:var(--ink);stroke-width:2}
+textarea{width:100%;box-sizing:border-box;min-height:120px;font:13px/1.4 ui-monospace,Menlo,monospace;border:1px solid var(--gr);border-radius:12px;background:var(--bg);color:var(--ink);padding:9px}
+.note{color:var(--mu);font-size:.85em;margin:6px 0 0}
+</style></head><body><main class="w">
+<span class="tag">ПРАКТИЧНИЙ ІНСТРУМЕНТ</span><h1>Підключення сонячних панелей</h1>
+<p class="sub">Змінюйте параметри — схема й розрахунок оновлюються одразу. Усі розрахунки навчальні: для реальної роботи беріть дані з паспорта панелі та інвертора.</p>
+<div class="g"><div>
+<div class="cd"><h2>Варіант і параметри панелі</h2><label>Варіант завдання<select id="var"><option value="">— вручну —</option><option value="1">Варіант 1</option><option value="2">Варіант 2</option><option value="3">Варіант 3</option><option value="4">Варіант 4</option><option value="5">Варіант 5</option><option value="6">Варіант 6</option></select></label><p class="note" id="vn">Оберіть свій варіант — усі дані підставляться самі.</p><div class="f" style="margin-top:10px">
+<label>Потужність, Вт<input type="number" id="pm" value="450"></label>
+<label>Напруга Vmp, В<input type="number" id="vmp" value="41" step="0.1"></label>
+<label>Струм Imp, А<input type="number" id="imp" value="11" step="0.1"></label>
+<label>Холостий хід Voc, В<input type="number" id="voc" value="49" step="0.1"></label>
+<label>Короткого замикання Isc, А<input type="number" id="isc" value="11.6" step="0.1"></label>
+<label>Коеф. Voc, %/°C<input type="number" id="kv" value="0.27" step="0.01"></label>
+<label>Мін. температура, °C<input type="number" id="tm" value="-20"></label></div></div>
+<div class="cd"><h2>2. Як з'єднуємо панелі</h2>
+<div class="sl"><span>Послідовно в одному рядку: <b id="nsv">3</b> шт</span><input type="range" id="ns" min="1" max="20" value="3"></div>
+<div class="sl"><span>Рядків паралельно: <b id="npv">3</b></span><input type="range" id="np" min="1" max="10" value="3"></div>
+<div class="pre" id="pr"><button data-s="3,3">3×3</button><button data-s="9,1">9×1</button><button data-s="4,2">4×2</button><button data-s="6,2">6×2</button><button data-s="1,9">1×9</button></div></div>
+<div class="cd"><h2>3. Інвертор</h2><div class="f">
+<label>Макс. напруга входу, В<input type="number" id="vmax" value="600"></label>
+<label>Потужність, кВт<input type="number" id="pinv" value="5" step="0.1"></label>
+<label>MPPT від, В<input type="number" id="vlo" value="120"></label>
+<label>MPPT до, В<input type="number" id="vhi" value="500"></label>
+<label>Макс. струм входу, А<input type="number" id="imax" value="40" step="0.1"></label></div></div>
+<div class="cd"><h2>4. Сонце</h2><div class="f">
+<label>Пікові години за день<input type="number" id="h" value="4" step="0.1"></label>
+<label>ККД системи, %<input type="number" id="eff" value="85"></label><div class="pre" style="grid-column:1/-1"><button data-h="6">Літо (6 год)</button><button data-h="1.5">Зима (1,5 год)</button></div></div></div>
+</div><div>
+<div class="cd"><h2>Схема з'єднання</h2><div id="sch"></div><p class="note" id="cap"></p></div>
+<div class="cd"><h2>Результат</h2><div class="tiles" id="tl"></div></div>
+<div class="cd"><h2>Перевірка сумісності з інвертором</h2><ul id="ck"></ul></div>
+<div class="cd"><h2>Звіт для практичної</h2><textarea id="rp" readonly></textarea><div class="pre" style="margin-top:8px"><button id="cp">Скопіювати</button><span class="note" id="ms"></span></div></div>
+</div></div></main>
+<script>
+const $=i=>document.getElementById(i),n=i=>parseFloat($(i).value)||0,f=(x,d=1)=>x.toLocaleString('uk-UA',{maximumFractionDigits:d});
+function draw(Ns,Np){const pw=30,ph=18,gp=12,rh=32,sh=Math.min(Ns,8),sr=Math.min(Np,8),x0=50,ell=Ns>8?46:0,xr=x0+sh*(pw+gp)+ell,W=xr+60+90,H=40+sr*rh,ym=24+(sr-1)*rh/2;
+let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Схема з'єднання панелей"><path class="wr" d="M${x0-14} 24V${24+(sr-1)*rh}M${xr+14} 24V${24+(sr-1)*rh}"/><text x="${x0-18}" y="14">−</text><text x="${xr+10}" y="14">+</text>`;
+for(let i=0;i<sr;i++){const y=24+i*rh;s+=`<path class="wr" d="M${x0-14} ${y}H${xr+14}"/>`;for(let k=0;k<sh;k++)s+=`<rect class="pn" x="${x0+k*(pw+gp)}" y="${y-ph/2}" width="${pw}" height="${ph}"/>`;if(Ns>8)s+=`<rect x="${x0+sh*(pw+gp)-6}" y="${y-8}" width="${ell}" height="16" fill="var(--cd)"/><text x="${x0+sh*(pw+gp)-2}" y="${y+4}">…×${Ns}</text>`}
+s+=`<path class="wr" d="M${xr+14} ${ym-8}H${xr+60}M${x0-14} ${24+(sr-1)*rh}V${H-8}H${xr+40}V${ym+8}H${xr+60}"/><rect class="iv" x="${xr+60}" y="${ym-24}" width="76" height="48" rx="6"/><path class="wr" d="M${xr+60} ${ym+24}L${xr+136} ${ym-24}"/><text x="${xr+66}" y="${ym-6}">=</text><text x="${xr+118}" y="${ym+16}">~</text>`;
+if(Np>8)s+=`<text x="${x0}" y="${H-1}">+ ще ${Np-8} рядків (не показано)</text>`;return s+'</svg>'}
+const types={A:[450,41,11,49,11.6,.27],B:[400,31,12.9,37,13.6,.28],C:[550,42,13.1,50,13.9,.28]},vs={1:{t:'A',n:12,vmax:600,lo:120,hi:500,im:40,p:6,tm:-20,c:15},2:{t:'B',n:14,vmax:550,lo:100,hi:450,im:32,p:5,tm:-25,c:12},3:{t:'C',n:10,vmax:600,lo:150,hi:550,im:32,p:6,tm:-20,c:18},4:{t:'A',n:8,vmax:450,lo:90,hi:400,im:25,p:3,tm:-20,c:8},5:{t:'B',n:9,vmax:500,lo:120,hi:450,im:30,p:4,tm:-30,c:10},6:{t:'C',n:16,vmax:1000,lo:200,hi:800,im:40,p:10,tm:-20,c:25}},def=$('pr').innerHTML;let V=null;
+function setVar(){V=vs[$('var').value]||null;const pr=$('pr');if(!V){$('vn').textContent='Оберіть свій варіант — усі дані підставляться самі.';pr.innerHTML=def;calc();return}const t=types[V.t],m={pm:t[0],vmp:t[1],imp:t[2],voc:t[3],isc:t[4],kv:t[5],tm:V.tm,vmax:V.vmax,vlo:V.lo,vhi:V.hi,imax:V.im,pinv:V.p};for(const k in m)$(k).value=m[k];const l=[];for(let a=1;a<=20;a++)if(V.n%a==0&&V.n/a<=10)l.push([a,V.n/a]);pr.innerHTML=l.map(x=>`<button data-s="${x[0]},${x[1]}">${x[0]}×${x[1]}</button>`).join('');const mid=l[Math.floor(l.length/2)];$('ns').value=mid[0];$('np').value=mid[1];$('vn').textContent=`Треба підключити ${V.n} панелей. Обирайте схему кнопками: перше число — послідовно в рядку, друге — рядків паралельно.`;calc()}
+function calc(){const Pm=n('pm'),Vmp=n('vmp'),Imp=n('imp'),Voc=n('voc'),Isc=n('isc'),k=n('kv')/100,Tm=n('tm'),Ns=+$('ns').value,Np=+$('np').value,Vmax=n('vmax'),Vlo=n('vlo'),Vhi=n('vhi'),Imax=n('imax'),Pi=n('pinv')*1000,H=n('h'),E=n('eff')/100;
+const N=Ns*Np,Vs=Ns*Vmp,It=Np*Imp,Isct=Np*Isc,P=N*Pm,Vc=Ns*Voc*(1+k*(25-Tm)),Ed=P*H*E/1000,r=Pi?P/Pi:0;
+$('nsv').textContent=Ns;$('npv').textContent=Np;$('sch').innerHTML=draw(Ns,Np);$('cap').textContent=`${Ns} панелей послідовно в рядку × ${Np} рядків паралельно = ${N} панелей. Послідовно напруга додається, паралельно додається струм.`;
+$('tl').innerHTML=[['Напруга рядка',f(Vs)+' В'],['Струм (робочий)',f(It)+' А'],['Потужність',P>=1000?f(P/1000,2)+' кВт':f(P)+' Вт'],['Енергія за день',f(Ed,1)+' кВт·год'],['Панелей',N+' шт']].concat(V?[['Споживання',f(V.c)+' кВт·год'],['Баланс за день',(Ed-V.c>=0?'+':'')+f(Ed-V.c)+' кВт·год']]:[]).map(t=>`<div class="t"><span>${t[0]}</span><strong>${t[1]}</strong></div>`).join('');
+const c=[];c.push(Vc<=Vmax?['ok','Напруга в мороз у нормі',`Voc рядка при ${f(Tm,0)} °C ≈ ${f(Vc)} В, ліміт ${f(Vmax)} В.`]:['er','Перевищена макс. напруга інвертора',`Voc рядка при ${f(Tm,0)} °C ≈ ${f(Vc)} В > ${f(Vmax)} В. Зменшіть кількість панелей у рядку.`]);
+c.push(Vs<Vlo?['er','Напруга рядка нижче діапазону MPPT',`${f(Vs)} В < ${f(Vlo)} В. Додайте панелі в рядок.`]:Vs>Vhi?['wn','Напруга рядка вище діапазону MPPT',`${f(Vs)} В > ${f(Vhi)} В. Зменшіть панелі в рядку.`]:['ok','Напруга в діапазоні MPPT',`${f(Vs)} В між ${f(Vlo)} і ${f(Vhi)} В.`]);
+c.push(Isct<=Imax?['ok','Струм у межах входу',`Isc всіх рядків ${f(Isct)} А ≤ ${f(Imax)} А.`]:['er','Струм перевищує вхід',`Isc ${f(Isct)} А > ${f(Imax)} А. Зменшіть кількість рядків або використайте кілька входів.`]);
+c.push(r<=1?['ok','Потужність панелей не перевищує інвертор',`Відношення DC/AC = ${f(r,2)}.`]:r<=1.3?['wn','Панелей трохи більше, ніж потужність інвертора',`DC/AC = ${f(r,2)}: часто допускається, звірте з паспортом.`]:['er','Занадто багато панелей для інвертора',`DC/AC = ${f(r,2)}. Потрібен потужніший інвертор або менше панелей.`]);
+if(V)c.unshift(N===V.n?['ok','Усі панелі підключено',`Схема використовує ${N} із ${V.n} панелей.`]:['wn','Кількість панелей не збігається з варіантом',`У варіанті ${V.n} панелей, а в схемі ${N} (${Ns}×${Np}).`]);
+$('ck').innerHTML=c.map(x=>`<li class="${x[0]}"><i></i><div><b>${x[1]}</b><small>${x[2]}</small></div></li>`).join('');
+$('rp').value=`Схема: ${Ns} послідовно × ${Np} паралельно = ${N} панелей\nНапруга рядка (Vmp): ${f(Vs)} В\nVoc рядка при ${f(Tm,0)} °C: ${f(Vc)} В (ліміт ${f(Vmax)} В)\nСтрум (Imp × рядки): ${f(It)} А; Isc сума: ${f(Isct)} А (ліміт ${f(Imax)} А)\nПотужність: ${f(P)} Вт; DC/AC: ${f(r,2)}\nЕнергія за день (${f(H)} год, ККД ${f(E*100,0)} %): ${f(Ed)} кВт·год\nВисновки:\n`+c.map(x=>`- ${x[1]}`).join('\n')}
+document.querySelectorAll('input').forEach(e=>e.addEventListener('input',calc));
+$('pr').onclick=e=>{const b=e.target.closest('[data-s]');if(b){const[a,p]=b.dataset.s.split(',');$('ns').value=a;$('np').value=p;calc()}};
+document.querySelectorAll('[data-h]').forEach(b=>b.onclick=()=>{$('h').value=b.dataset.h;calc()});
+$('cp').onclick=async()=>{try{await navigator.clipboard.writeText($('rp').value);$('ms').textContent='Скопійовано'}catch(e){$('rp').select();$('ms').textContent='Виділено — натисніть Ctrl+C'}};
+calc();
+$('var').onchange=setVar;
+</script></body></html>
